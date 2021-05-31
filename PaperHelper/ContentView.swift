@@ -28,7 +28,9 @@ struct ContentView: View {
                     
                     NavigationLink(destination: InterestView()){
                         HStack {
-                            Text("Edit").modifier(ButtonLargeTextStyle())
+                            Text("Edit")
+                                .foregroundColor(Color.blue)
+                                .modifier(ButtonLargeTextStyle())
                                 .fixedSize(horizontal: true, vertical: false)
                             
                         }
@@ -64,8 +66,11 @@ struct ContentView: View {
                     
                     NavigationLink(destination: MoreView()){
                         HStack {
-                            Text("View More").modifier(ButtonSmallTextStyle())
+                            Text("View More")
+                                .foregroundColor(Color.blue)
+                                .modifier(ButtonSmallTextStyle())
                                 .fixedSize(horizontal: true, vertical: false)
+                                
                             
                         }
                     }
@@ -76,30 +81,31 @@ struct ContentView: View {
                 .padding(.bottom, 40)
                 .padding([.leading,.trailing], 80)
                 
-                VStack(spacing: 60){
+                VStack(spacing: 20){
                     
                     Text("Conformer: Convolution-augmented Transformer for Speech Recognition")
                         .font(.system(size: 18, weight: .semibold))
                         .multilineTextAlignment(.center).lineLimit(1)
-                        .padding()
-                        .overlay( RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.gray, lineWidth: 4))
-                        .frame(width: 380, height: 20)
+                        .frame(width: 370, height: 60)
+                        .overlay( RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.gray, lineWidth: 2))
+                        
                     
                     
                     
                     Text("MTH-IDS: A Multi-Tiered Hybrid Intrusion Detection System for Internet of Vehicles").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
-                        .padding()
-                        .overlay( RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.gray, lineWidth: 4))
-                        .frame(width: 380, height: 20)
+                        .frame(width: 370, height: 60)
+                        
+                        .overlay( RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.gray, lineWidth: 2))
+                        
                     
                     
                     Text("Social-IWSTCNN: A Social Interaction-Weighted Spatio-Temporal Convolutional Neural Network for Pedestrian Trajectory Prediction in Urban Traffic Scenarios").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
-                        .padding()
-                        .overlay( RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.gray, lineWidth: 4))
-                        .frame(width: 380, height: 20)
+                        .frame(width: 370, height: 60)
+                        .overlay( RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.gray, lineWidth: 2))
+                        
                     
                     
                 } // end of 2 VStack
