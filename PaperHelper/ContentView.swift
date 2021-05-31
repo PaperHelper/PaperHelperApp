@@ -16,7 +16,7 @@ struct ContentView: View {
                         .font(.title)
                         .fontWeight(.bold).multilineTextAlignment(.leading)
                         .fixedSize(horizontal: true, vertical: false)
-
+                    
                     Spacer();
                     Spacer();
                     Spacer();
@@ -27,13 +27,13 @@ struct ContentView: View {
                     Spacer();
                     
                     NavigationLink(destination: InterestView()){
-                        HStack {
-                            Text("Edit")
-                                .foregroundColor(Color.blue)
-                                .modifier(ButtonLargeTextStyle())
-                                .fixedSize(horizontal: true, vertical: false)
-                            
-                        }
+                        
+                        Text("Edit")
+                            .foregroundColor(Color.blue)
+                            .modifier(ButtonLargeTextStyle())
+                            .fixedSize(horizontal: true, vertical: false)
+                        
+                        
                     }
                     
                     
@@ -65,14 +65,13 @@ struct ContentView: View {
                     Spacer();
                     
                     NavigationLink(destination: MoreView()){
-                        HStack {
-                            Text("View More")
-                                .foregroundColor(Color.blue)
-                                .modifier(ButtonSmallTextStyle())
-                                .fixedSize(horizontal: true, vertical: false)
-                                
-                            
-                        }
+                        
+                        Text("View More")
+                            .foregroundColor(Color.blue)
+                            .modifier(ButtonSmallTextStyle())
+                            .fixedSize(horizontal: true, vertical: false)
+                        
+                        
                     }
                     
                     
@@ -89,7 +88,7 @@ struct ContentView: View {
                         .frame(width: 370, height: 60)
                         .overlay( RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.gray, lineWidth: 2))
-                        
+                    
                     
                     
                     
@@ -98,14 +97,14 @@ struct ContentView: View {
                         
                         .overlay( RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.gray, lineWidth: 2))
-                        
+                    
                     
                     
                     Text("Social-IWSTCNN: A Social Interaction-Weighted Spatio-Temporal Convolutional Neural Network for Pedestrian Trajectory Prediction in Urban Traffic Scenarios").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
                         .frame(width: 370, height: 60)
                         .overlay( RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.gray, lineWidth: 2))
-                        
+                    
                     
                     
                 } // end of 2 VStack
@@ -123,7 +122,7 @@ struct ButtonLargeTextStyle: ViewModifier {
         content
             .font(Font.custom("Arial Round MT Bold", size: 16))
             .foregroundColor(Color.black)
-            
+        
         
         
     }
