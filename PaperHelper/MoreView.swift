@@ -58,6 +58,8 @@ struct MoreView: View {
                     }//논문3 VStack
                 }//논문3 Navigation
             }
+            
+            
         }//end of VStack
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)

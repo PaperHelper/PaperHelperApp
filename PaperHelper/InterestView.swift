@@ -51,6 +51,7 @@ struct InterestView: View {
                       message: Text("We will recommand papers based on your interest."),
                       dismissButton: .default(Text("Okay")))
             }//end of .alert
+            
         }
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)

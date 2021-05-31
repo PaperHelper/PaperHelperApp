@@ -14,14 +14,11 @@ struct ContentView: View {
                 HStack{
                     Text("Your Interest")
                         .font(.title)
-                        .fontWeight(.bold).multilineTextAlignment(.leading)
+                        .fontWeight(.bold)
+                        .frame(width: 250, height: 50)
+                        .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: true, vertical: false)
                     
-                    Spacer();
-                    Spacer();
-                    Spacer();
-                    Spacer();
-                    Spacer();
                     Spacer();
                     Spacer();
                     Spacer();
@@ -54,12 +51,10 @@ struct ContentView: View {
                 HStack{
                     Text("Today's Paper")
                         .font(.title)
-                        .fontWeight(.bold).multilineTextAlignment(.leading)
+                        .fontWeight(.bold)
+                        .frame(width: 250, height: 50).multilineTextAlignment(.leading)
                         .fixedSize(horizontal: true, vertical: false)
                     
-                    Spacer();
-                    Spacer();
-                    Spacer();
                     Spacer();
                     Spacer();
                     Spacer();
