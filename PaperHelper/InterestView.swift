@@ -41,9 +41,11 @@ struct InterestView: View {
                 Text("Save")
                     .foregroundColor(Color.white)
                     .frame(width: 380, height: 40)
+                    .background(Color.blue)
+                    .cornerRadius(12)
                     .overlay( RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.blue, lineWidth: 2))
-                    .background(Color.blue)
+                    
             }
             //State for alert
             .alert(isPresented: self.$alertIsVisible) {

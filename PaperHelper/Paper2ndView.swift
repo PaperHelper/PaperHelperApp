@@ -86,6 +86,7 @@ struct Paper2ndView: View {
                     .overlay( RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.blue, lineWidth: 2))
                     .background(Color.blue)
+                    .cornerRadius(12)
             }
             //State for alert
             .alert(isPresented: self.$alertIsVisible2) {
