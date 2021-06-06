@@ -54,7 +54,11 @@ struct InterestView: View {
                     HStack{
                         Text(interestlistItem.name)
                         Spacer()
-                        Text(interestlistItem.isChecked ? "✅" : "⬛️")
+                        Text(interestlistItem.isChecked ? "✓" : " ")
+                            .font(.title)
+                            .foregroundColor(Color.blue)
+                            .bold()
+                            
                     } // end of HStack
                     .background(Color.white)    //그 줄의 어딜 눌러도 clickable
                     .onTapGesture {
