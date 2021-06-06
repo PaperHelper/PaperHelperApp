@@ -7,12 +7,31 @@
 
 import SwiftUI
 
+struct InterestlistItem: Identifiable {    //unique한 이름이 필요함
+    let id = UUID()     //unidue한 id
+    var name: String
+    var isChecked: Bool = false
+}
+
 struct InterestView: View {
-    @State var interestItems = ["Artificial Intelligence","Database", "Operating Systems", "Distributed, Parallel, and Cluster Computing", "Networking and Internet Architecture", "Computer Vision and Pattern Recognition", "Robotics", "Programming Languages", "Data Structures and Algorithms", "Cryptography and Security"]
+    @State var interestlistItems = [
+        InterestlistItem(name : "Artificial Intelligence", isChecked: false),
+        InterestlistItem(name :"Database", isChecked: false),
+        InterestlistItem(name :"Operating Systems", isChecked: false),
+        InterestlistItem(name :"Distributed, Parallel, and Cluster Computing", isChecked: false),
+        InterestlistItem(name :"Networking and Internet Architecture", isChecked: false),
+        InterestlistItem(name :"Computer Vision and Pattern Recognition", isChecked: false),
+        InterestlistItem(name :"Robotics", isChecked: false),
+        InterestlistItem(name :"Programming Languages", isChecked: false),
+        InterestlistItem(name :"Data Structures and Algorithms", isChecked: false),
+        InterestlistItem(name :"Cryptography and Security", isChecked: false),
+    ]
+    
     @State var alertIsVisible = false
     
     
     var body: some View {
+        
         
         VStack{
             Text("Choose Your")
@@ -26,10 +45,22 @@ struct InterestView: View {
                 .fixedSize(horizontal: true, vertical: false)
             
             List {
-                ForEach(interestItems, id: \.self){
-                    item in Text(item)
-                    
-                }//End of ForEach
+                ForEach(interestlistItems){
+                    interestlistItem in
+                    HStack{
+                        Text(interestlistItem.name)
+                        Spacer()
+                        Text(interestlistItem.isChecked ? "✅" : "⬛️")
+                    } // end of HStack
+                    .background(Color.white)    //그 줄의 어딜 눌러도 clickable
+                    .onTapGesture {
+                        if let matchingIndex = self.interestlistItems.firstIndex(where: {
+                            $0.id == interestlistItem.id
+                        }){
+                            self.interestlistItems[matchingIndex].isChecked.toggle()
+                        }
+                    }
+                } //End of ForEach
             }//End of list
             .padding(.top, 20)
             
@@ -37,6 +68,38 @@ struct InterestView: View {
             Button(action: {
                 self.alertIsVisible = true
                 
+                let fileManager = FileManager.default
+                let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let directoryURL = documentsURL.appendingPathComponent("DoNotDelete")
+                
+                do {
+                    // 폴더 생성
+                    try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
+                } catch let e {
+                    // 오류 처리
+                    print(e.localizedDescription)
+                }
+                
+                // 4. 저장할 파일 이름 (확장자 필수)
+                let helloPath = directoryURL.appendingPathComponent("PaperInterest.txt")
+                // 파일에 들어갈 string
+                var text = ""
+                for item in interestlistItems{
+                    
+                    if item.isChecked == true {
+                        text.append(item.name)
+                        text.append("\n")
+                    }
+                    
+                }
+                
+                
+                do {
+                    // 4-1. 파일 생성
+                    try text.write(to: helloPath, atomically: false, encoding: .utf8)
+                }catch let error as NSError {
+                    print("Error creating File : \(error.localizedDescription)")
+                }
             }) {
                 Text("Save")
                     .foregroundColor(Color.white)
@@ -57,9 +120,6 @@ struct InterestView: View {
         }
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
-        
-        
-        
     }
 }
 
