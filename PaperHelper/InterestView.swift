@@ -28,6 +28,10 @@ struct InterestView: View {
     ]
     
     @State var alertIsVisible = false
+    @State var interestFlag : Bool = true
+    @State var interestData : Data?
+    @State var interestString : String = ""
+    @State var interestArr = [String]()
     
     
     var body: some View {
@@ -120,6 +124,33 @@ struct InterestView: View {
         }
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
+        .onAppear(){
+            let fileManager = FileManager.default
+            let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let directoryURL = documentsURL.appendingPathComponent("DoNotDelete")
+            let interestPath = directoryURL.appendingPathComponent("PaperInterest.txt")
+            
+            if !fileManager.fileExists(atPath: interestPath.path) {
+                interestFlag = false
+            }
+            if interestFlag == true{
+                interestData = fileManager.contents(atPath : interestPath.path)!
+                interestString = String(data: interestData!, encoding: .utf8)!
+                print(interestString)
+                interestArr = interestString.components(separatedBy: "\n")
+                if interestArr.count > 0 {
+                    interestArr.removeLast()
+                }
+            }
+            for item in interestArr {
+                for i in 0..<interestlistItems.count{
+                    if item == interestlistItems[i].name {
+                        interestlistItems[i].isChecked = true
+                    }
+                } //end of for interestlistItem
+            } //end of for Arr
+
+        } // end of onAppear
     }
 }
 

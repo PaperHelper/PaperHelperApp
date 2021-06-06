@@ -48,10 +48,13 @@ struct ContentView: View {
                             interestFlag = false
                         }
                         if interestFlag == true{
-                        interestData = fileManager.contents(atPath : interestPath.path)!
-                        interestString = String(data: interestData!, encoding: .utf8)!
-                        print(interestString)
-                        interestArr = interestString.components(separatedBy: "\n")
+                            interestData = fileManager.contents(atPath : interestPath.path)!
+                            interestString = String(data: interestData!, encoding: .utf8)!
+                            print(interestString)
+                            interestArr = interestString.components(separatedBy: "\n")
+                            if interestArr.count > 0 {
+                                interestArr.removeLast()
+                            }
                         }
 
                     } // end of onAppear
@@ -62,10 +65,11 @@ struct ContentView: View {
                 .padding([.leading,.trailing], 80)
                 
                 VStack{
-                    if interestFlag == false {
+                    if interestFlag == false || interestArr.count == 0 {
                         List{
                             Text("Select your interest first!!")
                         }
+                        .listStyle(PlainListStyle())
                     }
                     else {
                         List{
@@ -74,6 +78,7 @@ struct ContentView: View {
                             }
                         
                         }//end of List
+                        .listStyle(PlainListStyle())
                     }
                 }//end of VStack
                 
@@ -137,7 +142,11 @@ struct ContentView: View {
             }//end of VStack
             .navigationBarTitle("Paper Helper", displayMode: .inline)
         }//nevigationview
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(DefaultNavigationViewStyle())
+        .onAppear(){
+            print("here")
+        }
+        
     }
 }
 
