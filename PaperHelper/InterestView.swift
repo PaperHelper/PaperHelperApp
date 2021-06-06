@@ -80,8 +80,8 @@ struct InterestView: View {
                     print(e.localizedDescription)
                 }
                 
-                // 4. 저장할 파일 이름 (확장자 필수)
-                let helloPath = directoryURL.appendingPathComponent("PaperInterest.txt")
+                // 저장할 파일 이름 (확장자 필수)
+                let interestPath = directoryURL.appendingPathComponent("PaperInterest.txt")
                 // 파일에 들어갈 string
                 var text = ""
                 for item in interestlistItems{
@@ -96,7 +96,7 @@ struct InterestView: View {
                 
                 do {
                     // 4-1. 파일 생성
-                    try text.write(to: helloPath, atomically: false, encoding: .utf8)
+                    try text.write(to: interestPath, atomically: false, encoding: .utf8)
                 }catch let error as NSError {
                     print("Error creating File : \(error.localizedDescription)")
                 }

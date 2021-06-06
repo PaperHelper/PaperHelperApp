@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var interestFlag : Bool = true
+    @State var interestData : Data?
+    @State var interestString : String = ""
+    @State var interestArr = [String]()
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -32,6 +38,23 @@ struct ContentView: View {
                         
                         
                     }
+                    .onAppear(){
+                        let fileManager = FileManager.default
+                        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                        let directoryURL = documentsURL.appendingPathComponent("DoNotDelete")
+                        let interestPath = directoryURL.appendingPathComponent("PaperInterest.txt")
+                        
+                        if !fileManager.fileExists(atPath: interestPath.path) {
+                            interestFlag = false
+                        }
+                        if interestFlag == true{
+                        interestData = fileManager.contents(atPath : interestPath.path)!
+                        interestString = String(data: interestData!, encoding: .utf8)!
+                        print(interestString)
+                        interestArr = interestString.components(separatedBy: "\n")
+                        }
+
+                    } // end of onAppear
                     
                     
                 }   //HStack
@@ -39,13 +62,20 @@ struct ContentView: View {
                 .padding([.leading,.trailing], 80)
                 
                 VStack{
-                    List{
-                        Text("Aritificial Intelligence")
-                        Text("Networking and Internet Architecture")
-                        Text("Computer Vision and Pattern")
-                        
+                    if interestFlag == false {
+                        List{
+                            Text("Select your interest first!!")
+                        }
                     }
-                }
+                    else {
+                        List{
+                            ForEach(interestArr, id: \.self){
+                                item in Text(item)
+                            }
+                        
+                        }//end of List
+                    }
+                }//end of VStack
                 
                 
                 HStack{
