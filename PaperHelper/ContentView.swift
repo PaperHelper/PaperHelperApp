@@ -145,7 +145,71 @@ struct ContentView: View {
         .navigationViewStyle(DefaultNavigationViewStyle())
         .onAppear(){
             print("here")
+            jsonPost()
         }
+        
+    }
+    
+    func jsonPost() {
+        // 1. 전송할 값 준비
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let directoryURL = documentsURL.appendingPathComponent("DoNotDelete")
+        let interestPath = directoryURL.appendingPathComponent("PaperInterest.txt")
+        var interestModi = ""
+        if !fileManager.fileExists(atPath: interestPath.path) {
+            interestFlag = false
+        }
+        if interestFlag == true{
+            interestData = fileManager.contents(atPath : interestPath.path)!
+            interestString = String(data: interestData!, encoding: .utf8)!
+            interestModi = interestString.replacingOccurrences(of: "\n", with: "\t")
+            interestArr = interestString.components(separatedBy: "\n")
+            if interestArr.count == 0 {
+                interestModi = ""
+            }
+        }
+        
+        let param = ["interest": interestModi] // JSON 객체로 변환할 딕셔너리 준비
+        let paramData = try! JSONSerialization.data(withJSONObject: param, options: [])
+        print()
+        print("paramData: \(paramData.count)")
+        print()
+        // 2. URL 객체 정의
+        let url = URL(string: "http://163.239.28.25:5000/interest");
+        
+        // 3. URLRequest 객체 정의 및 요청 내용 담기
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.httpBody = paramData
+        
+        // 4. HTTP 메시지에 포함될 헤더 설정
+        request.addValue("applicaion/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+        
+        // 5. URLSession 객체를 통해 전송 및 응답값 처리 로직 작성
+        
+        let task = URLSession.shared.dataTask(with: request) {(data, response, error) in
+            
+            guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                print("\nerror=\(error)")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                print("\nstatusCode should be 200, but is \(httpStatus.statusCode)")
+                print("\nresponse = \(response)")
+            }
+            
+            
+            let responseString = String(data: data, encoding: .utf8)
+            print("\nresponseString = \(responseString)")
+            
+        }
+        
+        // 6. POST 전송
+        
+        task.resume()
         
     }
 }
