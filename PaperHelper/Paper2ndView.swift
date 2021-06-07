@@ -1,5 +1,5 @@
 //
-//  Paper2ndView.swift
+//  Paper1stView.swift
 //  PaperHelper
 //
 //  Created by 신나현 on 2021/05/31.
@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct Paper2ndView: View {
+    
     @State var alertIsVisible2 = false
+    @State var paperDict: Dictionary <String, String> = [:]
     
     var body: some View {
         VStack{
             
-            Text("Conformer: Convolution-augmented Transformer for Speech Recognition")
+            Text(paperDict["title1"] ?? "")
                 .font(.system(size: 20, weight: .semibold))
                 .multilineTextAlignment(.center).lineLimit(nil)
                 .frame(width: 350, height: 60)
@@ -24,7 +26,7 @@ struct Paper2ndView: View {
                         .font(.system(size: 15))
                         .frame(width: 80, height: 25)
                         .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
-                    Text("Anmol Gulati, et al.")
+                    Text(paperDict["author1"] ?? "")
                         .font(.system(size: 15))
                         .frame(width: 270, height: 25)
                 }//end of Author HStack
@@ -34,7 +36,7 @@ struct Paper2ndView: View {
                         .font(.system(size: 15))
                         .frame(width: 80, height: 25)
                         .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
-                    Text("Submitted to Interspeech 2020")
+                    Text(paperDict["publication1"] ?? "")
                         .font(.system(size: 15))
                         .frame(width: 270, height: 25)
                 }//end of Publication HStack
@@ -45,7 +47,7 @@ struct Paper2ndView: View {
                         .font(.system(size: 15))
                         .frame(width: 80, height: 25)
                         .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
-                    Text("2020")
+                    Text(paperDict["year1"] ?? "")
                         .font(.system(size: 15))
                         .frame(width: 270, height: 25)
                 }//end of Year HStack
@@ -64,13 +66,7 @@ struct Paper2ndView: View {
             }//end of Year HStack
             
             ScrollView(.vertical, showsIndicators: false) {
-                Text("""
-            Recurrent neural networks have been the defacto choice for ASR. While Transformers are good at modeling long-range global context, they are less capable to extract ﬁnegrained local feature patterns. In this work, we study how to organically combine convolutions with self-attention in ASR models.
-            The proposed Conformer block contains two Feed Forward modules sandwiching the Multi-Headed Self-Attention module and the Convolution module. We found that convolution module stacked after the self-attention module works best for speech recognition. We evaluate the proposed model on the LibriSpeech dataset, which consists of 970 hours of labeled speech and an additional 800M word token text-only corpus.
-            A Conformer block differs from a Transformer block in a number of ways, in particular, the inclusion of a convolution block and having a pair of FFNs surrounding the block in the Macaron-style. Using swish activations led to faster convergence in the Conformer models. Increasing attention heads up to 16 improved the accuracy of the devother datasets.
-            
-            
-            """)
+                Text(paperDict["summary1"] ?? "")
                     .font(.system(size: 15))
                     .frame(width: 350)
             } //end of Summary Scroll
@@ -98,12 +94,100 @@ struct Paper2ndView: View {
         }
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
-        
+        .onAppear(){
+            
+            requestGet()
+        }
     }//end of VStack
+    
+    
+    
+    func requestGet() {
+        //URL생성
+        guard let url = URL(string: "http://163.239.28.25:5000/paper") else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "get" //get : Get 방식, post : Post 방식
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            guard error == nil && data != nil else {
+                if let err = error {
+                    print(err.localizedDescription)
+                }
+                return
+            }
+         
+            if let _data = data {
+                
+                
+                let jsonString:String = String.init(data: _data, encoding: .utf8) ?? "err"
+                //print(jsonString)
+                
+                do{
+                    //decode is not working properly
+                    let newData = Data(jsonString.utf8)
+                    //print(newData)
+                    var jsonDerived = try JSONDecoder().decode(String.self, from : _data)
+                    //print(jsonDerived)
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "{", with: "")
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "}", with: "")
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "\"", with: "")
+                    var arr =  jsonDerived.components(separatedBy: ", ")
+                    //arr =  jsonDerived.components(separatedBy: ":")
+                    //print(arr)
+                    for var item in arr {
+                        for i in 0..<3 {
+                            if item.contains("title\(i)") {
+                                item = item.replacingOccurrences(of: "title\(i): ", with: "")
+                                paperDict["title\(i)"] = item
+                                
+                            }
+                            else if item.contains("author\(i)") {
+                                item = item.replacingOccurrences(of: "author\(i): ", with: "")
+                                paperDict["author\(i)"] = item
+                                
+                            }
+                            else if item.contains("publication\(i)") {
+                                item = item.replacingOccurrences(of: "publication\(i): ", with: "")
+                                paperDict["publication\(i)"] = item
+                                
+                            }
+                            else if item.contains("year\(i)") {
+                                item = item.replacingOccurrences(of: "year\(i): ", with: "")
+                                paperDict["year\(i)"] = item
+                                
+                            }
+                            else if item.contains("summary\(i)") {
+                                item = item.replacingOccurrences(of: "summary\(i): ", with: "")
+                                paperDict["summary\(i)"] = item
+                                
+                            }
+                            else if item.contains("pdf\(i)") {
+                                item = item.replacingOccurrences(of: "pdf\(i): ", with: "")
+                                paperDict["pdf\(i)"] = item
+                                
+                            }
+                        }
+                    }
+                                            
+                } catch let jsonErr {
+                    print("Error seriallizing json:",jsonErr)
+                }
+                
+            }else{
+                print("data nil")
+            }
+        })
+        task.resume()
+        
+    }
+    
 }
 
 struct Paper2ndView_Previews: PreviewProvider {
     static var previews: some View {
-        Paper2ndView()
+        Paper1stView()
     }
 }
