@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var interestData : Data?
     @State var interestString : String = ""
     @State var interestArr = [String]()
+    @State var paperDict: Dictionary <String, String> = [:]
     
     var body: some View {
         NavigationView{
@@ -56,7 +57,7 @@ struct ContentView: View {
                                 interestArr.removeLast()
                             }
                         }
-
+                        
                     } // end of onAppear
                     
                     
@@ -76,7 +77,7 @@ struct ContentView: View {
                             ForEach(interestArr, id: \.self){
                                 item in Text(item)
                             }
-                        
+                            
                         }//end of List
                         .listStyle(PlainListStyle())
                     }
@@ -112,7 +113,7 @@ struct ContentView: View {
                 
                 VStack(spacing: 20){
                     
-                    Text("Conformer: Convolution-augmented Transformer for Speech Recognition")
+                    Text(paperDict["Title0"] ?? "")
                         .font(.system(size: 18, weight: .semibold))
                         .multilineTextAlignment(.center).lineLimit(1)
                         .frame(width: 370, height: 60)
@@ -145,7 +146,8 @@ struct ContentView: View {
         .navigationViewStyle(DefaultNavigationViewStyle())
         .onAppear(){
             print("here")
-            jsonPost()
+            //jsonPost()
+            requestGet()
         }
         
     }
@@ -212,6 +214,92 @@ struct ContentView: View {
         task.resume()
         
     }
+    
+    
+    func requestGet() {
+        //URL생성
+        guard let url = URL(string: "http://163.239.28.25:5000/paper") else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "get" //get : Get 방식, post : Post 방식
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            guard error == nil && data != nil else {
+                if let err = error {
+                    print(err.localizedDescription)
+                }
+                return
+            }
+         
+            if let _data = data {
+                
+                
+                let jsonString:String = String.init(data: _data, encoding: .utf8) ?? "err"
+                //print(jsonString)
+                
+                do{
+                    //decode is not working properly
+                    let newData = Data(jsonString.utf8)
+                    //print(newData)
+                    var jsonDerived = try JSONDecoder().decode(String.self, from : _data)
+                    //print(jsonDerived)
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "{", with: "")
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "}", with: "")
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "\"", with: "")
+                    var arr =  jsonDerived.components(separatedBy: ", ")
+                    //arr =  jsonDerived.components(separatedBy: ":")
+                    //print(arr)
+                    for var item in arr {
+                        for i in 0..<3 {
+                            if item.contains("title\(i)") {
+                                item = item.replacingOccurrences(of: "title\(i): ", with: "")
+                                paperDict["title\(i)"] = item
+                                
+                            }
+                            else if item.contains("author\(i)") {
+                                item = item.replacingOccurrences(of: "author\(i): ", with: "")
+                                paperDict["author\(i)"] = item
+                                
+                            }
+                            else if item.contains("publication\(i)") {
+                                item = item.replacingOccurrences(of: "publication\(i): ", with: "")
+                                paperDict["publication\(i)"] = item
+                                
+                            }
+                            else if item.contains("year\(i)") {
+                                item = item.replacingOccurrences(of: "year\(i): ", with: "")
+                                paperDict["year\(i)"] = item
+                                
+                            }
+                            else if item.contains("summary\(i)") {
+                                item = item.replacingOccurrences(of: "summary\(i): ", with: "")
+                                paperDict["summary\(i)"] = item
+                                
+                            }
+                            else if item.contains("pdf\(i)") {
+                                item = item.replacingOccurrences(of: "pdf\(i): ", with: "")
+                                paperDict["pdf\(i)"] = item
+                                
+                            }
+                        }
+                    }
+                    //print(paperDict)
+                                            
+                } catch let jsonErr {
+                    print("Error seriallizing json:",jsonErr)
+                }
+                
+            }else{
+                print("data nil")
+            }
+        })
+        task.resume()
+        
+    }
+    
+    
 }
 
 
