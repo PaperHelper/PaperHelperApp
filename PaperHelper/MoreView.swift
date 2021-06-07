@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MoreView: View {
+    
+    @State var paperDict: Dictionary <String, String> = [:]
+    
     var body: some View {
         
         VStack{
@@ -24,12 +27,12 @@ struct MoreView: View {
                 NavigationLink(destination: Paper1stView()){
                     VStack{
                         
-                        Text("Conformer: Convolution-augmented Transformer for Speech Recognition")
+                        Text(paperDict["title0"] ?? "")
                             .font(.system(size: 19, weight: .semibold))
                             .lineLimit(1)
                             .frame(width: 350, height: 60)
                             .multilineTextAlignment(.leading)
-                        Text("Recurrent neural networks have been the defacto choice for ASR. While Transformers are good at modeling long-range global context, they are less capable to extract ﬁnegrained local feature patterns. In this work, we study how to organically combine convolutions with self-attention in ASR models.")
+                        Text(paperDict["summary0"] ?? "")
                             .font(.system(size: 14))
                             .multilineTextAlignment(.leading).lineLimit(7)
                         
@@ -39,12 +42,12 @@ struct MoreView: View {
                 
                 NavigationLink(destination: Paper2ndView()){
                     VStack{
-                        Text("MTH-IDS: A Multi-Tiered Hybrid Intrusion Detection System for Internet of Vehicles").font(.system(size: 19, weight: .semibold))
+                        Text(paperDict["title1"] ?? "").font(.system(size: 19, weight: .semibold))
                             .lineLimit(1)
                             .frame(width: 350, height: 60)
                             .multilineTextAlignment(.leading)
                         
-                        Text("Cyber threats may decrease the stability and robustness of IoV, as well as cause vehicle unavailability or trafﬁc accidents. Machine learning and data mining algorithms have been recognized as effective models to design IDSs. A multi-tiered hybrid intrusion detection system is proposed to identify known and zero-day cyber-attacks on both intra-vehicle and external networks.")
+                        Text(paperDict["summary1"] ?? "")
                             .font(.system(size: 14))
                             .multilineTextAlignment(.leading).lineLimit(7)
                     }//논문2 VStack
@@ -53,11 +56,11 @@ struct MoreView: View {
                 
                 NavigationLink(destination: Paper3rdView()){
                     VStack{
-                        Text("Social-IWSTCNN: A Social Interaction-Weighted Spatio-Temporal Convolutional Neural Network for Pedestrian Trajectory Prediction in Urban Traffic Scenarios").font(.system(size: 19, weight: .semibold))
+                        Text(paperDict["title2"] ?? "").font(.system(size: 19, weight: .semibold))
                             .lineLimit(1)
                             .frame(width: 350, height: 60)
                             .multilineTextAlignment(.leading)
-                        Text("We train and evaluate our algorithm on Waymo Open Dataset because it contains more sufﬁcient urban trafﬁc scenarios than the previously used ETH and UCY datasets. The pedestrians are labeled by 3D bounding boxes on LiDAR data with their real-world center position and size. We use MLP to learn the social interaction weights, and use an aggregate function to extract the spatial and social interaction features.")
+                        Text(paperDict["summary2"] ?? "")
                             .font(.system(size: 14))
                             .multilineTextAlignment(.leading).lineLimit(7)
                     }//논문3 VStack
@@ -68,7 +71,95 @@ struct MoreView: View {
         }//end of VStack
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
+        .onAppear(){
+            
+            requestGet()
+        }
     }
+    
+    
+    func requestGet() {
+        //URL생성
+        guard let url = URL(string: "http://163.239.28.25:5000/paper") else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "get" //get : Get 방식, post : Post 방식
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            guard error == nil && data != nil else {
+                if let err = error {
+                    print(err.localizedDescription)
+                }
+                return
+            }
+         
+            if let _data = data {
+                
+                
+                let jsonString:String = String.init(data: _data, encoding: .utf8) ?? "err"
+                //print(jsonString)
+                
+                do{
+                    //decode is not working properly
+                    let newData = Data(jsonString.utf8)
+                    //print(newData)
+                    var jsonDerived = try JSONDecoder().decode(String.self, from : _data)
+                    //print(jsonDerived)
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "{", with: "")
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "}", with: "")
+                    jsonDerived = jsonDerived.replacingOccurrences(of: "\"", with: "")
+                    var arr =  jsonDerived.components(separatedBy: ", ")
+                    //arr =  jsonDerived.components(separatedBy: ":")
+                    //print(arr)
+                    for var item in arr {
+                        for i in 0..<3 {
+                            if item.contains("title\(i)") {
+                                item = item.replacingOccurrences(of: "title\(i): ", with: "")
+                                paperDict["title\(i)"] = item
+                                
+                            }
+                            else if item.contains("author\(i)") {
+                                item = item.replacingOccurrences(of: "author\(i): ", with: "")
+                                paperDict["author\(i)"] = item
+                                
+                            }
+                            else if item.contains("publication\(i)") {
+                                item = item.replacingOccurrences(of: "publication\(i): ", with: "")
+                                paperDict["publication\(i)"] = item
+                                
+                            }
+                            else if item.contains("year\(i)") {
+                                item = item.replacingOccurrences(of: "year\(i): ", with: "")
+                                paperDict["year\(i)"] = item
+                                
+                            }
+                            else if item.contains("summary\(i)") {
+                                item = item.replacingOccurrences(of: "summary\(i): ", with: "")
+                                paperDict["summary\(i)"] = item
+                                
+                            }
+                            else if item.contains("pdf\(i)") {
+                                item = item.replacingOccurrences(of: "pdf\(i): ", with: "")
+                                paperDict["pdf\(i)"] = item
+                                
+                            }
+                        }
+                    }
+                                            
+                } catch let jsonErr {
+                    print("Error seriallizing json:",jsonErr)
+                }
+                
+            }else{
+                print("data nil")
+            }
+        })
+        task.resume()
+        
+    }
+    
 }
 
 struct MoreView_Previews: PreviewProvider {

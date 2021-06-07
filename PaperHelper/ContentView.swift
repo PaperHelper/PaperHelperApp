@@ -113,7 +113,7 @@ struct ContentView: View {
                 
                 VStack(spacing: 20){
                     
-                    Text(paperDict["Title0"] ?? "")
+                    Text(paperDict["title0"] ?? "")
                         .font(.system(size: 18, weight: .semibold))
                         .multilineTextAlignment(.center).lineLimit(1)
                         .frame(width: 370, height: 60)
@@ -123,7 +123,7 @@ struct ContentView: View {
                     
                     
                     
-                    Text("MTH-IDS: A Multi-Tiered Hybrid Intrusion Detection System for Internet of Vehicles").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
+                    Text(paperDict["title1"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
                         .frame(width: 370, height: 60)
                         
                         .overlay( RoundedRectangle(cornerRadius: 12)
@@ -131,7 +131,7 @@ struct ContentView: View {
                     
                     
                     
-                    Text("Social-IWSTCNN: A Social Interaction-Weighted Spatio-Temporal Convolutional Neural Network for Pedestrian Trajectory Prediction in Urban Traffic Scenarios").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
+                    Text(paperDict["title2"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.center).lineLimit(1)
                         .frame(width: 370, height: 60)
                         .overlay( RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.gray, lineWidth: 2))
@@ -146,7 +146,7 @@ struct ContentView: View {
         .navigationViewStyle(DefaultNavigationViewStyle())
         .onAppear(){
             print("here")
-            //jsonPost()
+            jsonPost()
             requestGet()
         }
         
@@ -285,7 +285,6 @@ struct ContentView: View {
                             }
                         }
                     }
-                    //print(paperDict)
                                             
                 } catch let jsonErr {
                     print("Error seriallizing json:",jsonErr)

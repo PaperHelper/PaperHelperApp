@@ -10,6 +10,7 @@ import SwiftUI
 struct Paper1stView: View {
     
     @State var alertIsVisible2 = false
+    @State var paperDict: Dictionary <String, String> = [:]
     
     var body: some View {
         VStack{
@@ -99,7 +100,10 @@ struct Paper1stView: View {
         }
         .padding(.top, 30.0)
         .padding(.bottom, 30.0)
-        
+        .onAppear(){
+            
+            requestGet()
+        }
     }//end of VStack
     
 }
