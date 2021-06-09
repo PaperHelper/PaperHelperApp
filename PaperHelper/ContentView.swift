@@ -7,6 +7,16 @@
 
 import SwiftUI
 
+// MARK: - PaperGet
+struct PaperGet: Codable {
+    let title0, author0, publication0, year0: String
+    let summary0, pdf0, title1, author1: String
+    let publication1, year1, summary1, pdf1: String
+    let title2, author2, publication2, year2: String
+    let summary2, pdf2: String
+}
+
+
 struct ContentView: View {
     
     @State var interestFlag : Bool = true
@@ -146,7 +156,13 @@ struct ContentView: View {
         .navigationViewStyle(DefaultNavigationViewStyle())
         .onAppear(){
             print("here")
-            jsonPost()
+            //jsonPost()
+            /*
+            let seconds = 5.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                // Put your code which should be executed with a delay here
+                requestGet()
+            }*/
             requestGet()
         }
         
@@ -243,48 +259,31 @@ struct ContentView: View {
                     //decode is not working properly
                     let newData = Data(jsonString.utf8)
                     //print(newData)
-                    var jsonDerived = try JSONDecoder().decode(String.self, from : _data)
-                    //print(jsonDerived)
-                    jsonDerived = jsonDerived.replacingOccurrences(of: "{", with: "")
-                    jsonDerived = jsonDerived.replacingOccurrences(of: "}", with: "")
-                    jsonDerived = jsonDerived.replacingOccurrences(of: "\"", with: "")
-                    var arr =  jsonDerived.components(separatedBy: ", ")
-                    //arr =  jsonDerived.components(separatedBy: ":")
-                    //print(arr)
-                    for var item in arr {
-                        for i in 0..<3 {
-                            if item.contains("title\(i)") {
-                                item = item.replacingOccurrences(of: "title\(i): ", with: "")
-                                paperDict["title\(i)"] = item
-                                
-                            }
-                            else if item.contains("author\(i)") {
-                                item = item.replacingOccurrences(of: "author\(i): ", with: "")
-                                paperDict["author\(i)"] = item
-                                
-                            }
-                            else if item.contains("publication\(i)") {
-                                item = item.replacingOccurrences(of: "publication\(i): ", with: "")
-                                paperDict["publication\(i)"] = item
-                                
-                            }
-                            else if item.contains("year\(i)") {
-                                item = item.replacingOccurrences(of: "year\(i): ", with: "")
-                                paperDict["year\(i)"] = item
-                                
-                            }
-                            else if item.contains("summary\(i)") {
-                                item = item.replacingOccurrences(of: "summary\(i): ", with: "")
-                                paperDict["summary\(i)"] = item
-                                
-                            }
-                            else if item.contains("pdf\(i)") {
-                                item = item.replacingOccurrences(of: "pdf\(i): ", with: "")
-                                paperDict["pdf\(i)"] = item
-                                
-                            }
-                        }
-                    }
+                    var jsonDerived = try JSONDecoder().decode(PaperGet.self, from : _data)
+                    //print(jsonDerived.title0)
+                    
+                    var i = 0
+                    paperDict["title\(i)"] = jsonDerived.title0
+                    paperDict["author\(i)"] = jsonDerived.author0
+                    paperDict["publication\(i)"] = jsonDerived.publication0
+                    paperDict["year\(i)"] = jsonDerived.year0
+                    paperDict["summary\(i)"] = jsonDerived.summary0
+                    paperDict["pdf\(i)"] = jsonDerived.pdf0
+                    i = 1
+                    paperDict["title\(i)"] = jsonDerived.title1
+                    paperDict["author\(i)"] = jsonDerived.author1
+                    paperDict["publication\(i)"] = jsonDerived.publication1
+                    paperDict["year\(i)"] = jsonDerived.year1
+                    paperDict["summary\(i)"] = jsonDerived.summary1
+                    paperDict["pdf\(i)"] = jsonDerived.pdf1
+                    i = 2
+                    paperDict["title\(i)"] = jsonDerived.title2
+                    paperDict["author\(i)"] = jsonDerived.author2
+                    paperDict["publication\(i)"] = jsonDerived.publication2
+                    paperDict["year\(i)"] = jsonDerived.year2
+                    paperDict["summary\(i)"] = jsonDerived.summary2
+                    paperDict["pdf\(i)"] = jsonDerived.pdf2
+                    
                                             
                 } catch let jsonErr {
                     print("Error seriallizing json:",jsonErr)
