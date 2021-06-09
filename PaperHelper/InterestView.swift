@@ -24,7 +24,7 @@ struct InterestView: View {
         InterestlistItem(name :"Robotics", isChecked: false),
         InterestlistItem(name :"Programming Languages", isChecked: false),
         InterestlistItem(name :"Data Structures and Algorithms", isChecked: false),
-        InterestlistItem(name :"Cryptography and Security", isChecked: false),
+        InterestlistItem(name :"Computation and Language", isChecked: false),
     ]
     
     @State var alertIsVisible = false
