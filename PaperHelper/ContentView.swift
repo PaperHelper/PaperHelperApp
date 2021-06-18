@@ -13,7 +13,21 @@ struct PaperGet: Codable {
     let summary0, pdf0, title1, author1: String
     let publication1, year1, summary1, pdf1: String
     let title2, author2, publication2, year2: String
-    let summary2, pdf2: String
+    let summary2, pdf2, tag0, tag1: String
+    let title3, author3, publication3, year3: String
+    let summary3, pdf3, tag2, tag3: String
+    let title4, author4, publication4, year4: String
+    let summary4, pdf4, tag4: String
+    let title5, author5, publication5, year5: String
+    let summary5, pdf5, tag5: String
+    let title6, author6, publication6, year6: String
+    let summary6, pdf6, tag6: String
+    let title7, author7, publication7, year7: String
+    let summary7, pdf7, tag7: String
+    let title8, author8, publication8, year8: String
+    let summary8, pdf8, tag8: String
+    let title9, author9, publication9, year9: String
+    let summary9, pdf9, tag9: String
 }
 
 
@@ -163,7 +177,7 @@ struct ContentView: View {
                 // Put your code which should be executed with a delay here
                 requestGet()
             }*/
-            requestGet()
+            //requestGet()
         }
         
     }

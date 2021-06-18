@@ -65,6 +65,72 @@ struct MoreView: View {
                             .multilineTextAlignment(.leading).lineLimit(7)
                     }//논문3 VStack
                 }//논문3 Navigation
+                
+                NavigationLink(destination: Paper4thView()){
+                    VStack{
+                        Text(paperDict["title3"] ?? "").font(.system(size: 19, weight: .semibold))
+                            .lineLimit(1)
+                            .frame(width: 350, height: 60)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text(paperDict["summary3"] ?? "")
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading).lineLimit(7)
+                    }//논문4 VStack
+                }//논문4 Navigation
+                
+                NavigationLink(destination: Paper5thView()){
+                    VStack{
+                        Text(paperDict["title4"] ?? "").font(.system(size: 19, weight: .semibold))
+                            .lineLimit(1)
+                            .frame(width: 350, height: 60)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text(paperDict["summary4"] ?? "")
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading).lineLimit(7)
+                    }//논문5 VStack
+                }//논문5 Navigation
+                
+                NavigationLink(destination: Paper6thView()){
+                    VStack{
+                        Text(paperDict["title5"] ?? "").font(.system(size: 19, weight: .semibold))
+                            .lineLimit(1)
+                            .frame(width: 350, height: 60)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text(paperDict["summary5"] ?? "")
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading).lineLimit(7)
+                    }//논문6 VStack
+                }//논문6 Navigation
+                
+                NavigationLink(destination: Paper7thView()){
+                    VStack{
+                        Text(paperDict["title6"] ?? "").font(.system(size: 19, weight: .semibold))
+                            .lineLimit(1)
+                            .frame(width: 350, height: 60)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text(paperDict["summary6"] ?? "")
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading).lineLimit(7)
+                    }//논문7 VStack
+                }//논문7 Navigation
+                
+                NavigationLink(destination: Paper8thView()){
+                    VStack{
+                        Text(paperDict["title7"] ?? "").font(.system(size: 19, weight: .semibold))
+                            .lineLimit(1)
+                            .frame(width: 350, height: 60)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text(paperDict["summary7"] ?? "")
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading).lineLimit(7)
+                    }//논문8 VStack
+                }//논문8 Navigation
+                
             }
             
             

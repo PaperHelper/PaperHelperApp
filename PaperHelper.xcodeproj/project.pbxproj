@@ -18,6 +18,13 @@
 		305C10012664CBC200B6D0B8 /* Paper1stView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C10002664CBC200B6D0B8 /* Paper1stView.swift */; };
 		305C10032664CCBC00B6D0B8 /* Paper2ndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C10022664CCBC00B6D0B8 /* Paper2ndView.swift */; };
 		305C10052664CCC600B6D0B8 /* Paper3rdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C10042664CCC600B6D0B8 /* Paper3rdView.swift */; };
+		30AF2546267CA66500790EA0 /* Paper4thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF2545267CA66500790EA0 /* Paper4thView.swift */; };
+		30AF2548267CA69200790EA0 /* Paper5thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF2547267CA69200790EA0 /* Paper5thView.swift */; };
+		30AF254A267CA6AA00790EA0 /* Paper6thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF2549267CA6AA00790EA0 /* Paper6thView.swift */; };
+		30AF254C267CA6B300790EA0 /* Paper7thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF254B267CA6B300790EA0 /* Paper7thView.swift */; };
+		30AF254E267CA6C400790EA0 /* Paper8thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF254D267CA6C400790EA0 /* Paper8thView.swift */; };
+		30AF2550267CA6EF00790EA0 /* Paper9thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF254F267CA6EF00790EA0 /* Paper9thView.swift */; };
+		30AF2552267CA6FA00790EA0 /* Paper10thView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF2551267CA6FA00790EA0 /* Paper10thView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +41,13 @@
 		305C10002664CBC200B6D0B8 /* Paper1stView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper1stView.swift; sourceTree = "<group>"; };
 		305C10022664CCBC00B6D0B8 /* Paper2ndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper2ndView.swift; sourceTree = "<group>"; };
 		305C10042664CCC600B6D0B8 /* Paper3rdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper3rdView.swift; sourceTree = "<group>"; };
+		30AF2545267CA66500790EA0 /* Paper4thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper4thView.swift; sourceTree = "<group>"; };
+		30AF2547267CA69200790EA0 /* Paper5thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper5thView.swift; sourceTree = "<group>"; };
+		30AF2549267CA6AA00790EA0 /* Paper6thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper6thView.swift; sourceTree = "<group>"; };
+		30AF254B267CA6B300790EA0 /* Paper7thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper7thView.swift; sourceTree = "<group>"; };
+		30AF254D267CA6C400790EA0 /* Paper8thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper8thView.swift; sourceTree = "<group>"; };
+		30AF254F267CA6EF00790EA0 /* Paper9thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper9thView.swift; sourceTree = "<group>"; };
+		30AF2551267CA6FA00790EA0 /* Paper10thView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paper10thView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +92,13 @@
 				305C10002664CBC200B6D0B8 /* Paper1stView.swift */,
 				305C10022664CCBC00B6D0B8 /* Paper2ndView.swift */,
 				305C10042664CCC600B6D0B8 /* Paper3rdView.swift */,
+				30AF2545267CA66500790EA0 /* Paper4thView.swift */,
+				30AF2547267CA69200790EA0 /* Paper5thView.swift */,
+				30AF2549267CA6AA00790EA0 /* Paper6thView.swift */,
+				30AF254B267CA6B300790EA0 /* Paper7thView.swift */,
+				30AF254D267CA6C400790EA0 /* Paper8thView.swift */,
+				30AF254F267CA6EF00790EA0 /* Paper9thView.swift */,
+				30AF2551267CA6FA00790EA0 /* Paper10thView.swift */,
 			);
 			path = PaperHelper;
 			sourceTree = "<group>";
@@ -160,10 +181,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30AF254A267CA6AA00790EA0 /* Paper6thView.swift in Sources */,
 				305C0FE92664A04000B6D0B8 /* AppDelegate.swift in Sources */,
+				30AF2552267CA6FA00790EA0 /* Paper10thView.swift in Sources */,
+				30AF2546267CA66500790EA0 /* Paper4thView.swift in Sources */,
 				305C10052664CCC600B6D0B8 /* Paper3rdView.swift in Sources */,
+				30AF2548267CA69200790EA0 /* Paper5thView.swift in Sources */,
 				305C0FEB2664A04000B6D0B8 /* SceneDelegate.swift in Sources */,
 				305C10012664CBC200B6D0B8 /* Paper1stView.swift in Sources */,
+				30AF2550267CA6EF00790EA0 /* Paper9thView.swift in Sources */,
+				30AF254C267CA6B300790EA0 /* Paper7thView.swift in Sources */,
+				30AF254E267CA6C400790EA0 /* Paper8thView.swift in Sources */,
 				305C0FFD2664B3A100B6D0B8 /* InterestView.swift in Sources */,
 				305C0FED2664A04000B6D0B8 /* ContentView.swift in Sources */,
 				305C0FFF2664BB9E00B6D0B8 /* MoreView.swift in Sources */,
