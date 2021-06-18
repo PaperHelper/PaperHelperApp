@@ -44,8 +44,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack{
-                Spacer()
-                Spacer()
+                
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     
                     if interestFlag == false || interestArr.count == 0 {
@@ -100,61 +100,83 @@ struct ContentView: View {
                     }
                 } //end of Summary Scroll
                 //Spacer()
+                .onAppear(){
+                    let fileManager = FileManager.default
+                    let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    let directoryURL = documentsURL.appendingPathComponent("DoNotDelete")
+                    let interestPath = directoryURL.appendingPathComponent("PaperInterest.txt")
+                    
+                    if !fileManager.fileExists(atPath: interestPath.path) {
+                        interestFlag = false
+                    }
+                    if interestFlag == true{
+                        interestData = fileManager.contents(atPath : interestPath.path)!
+                        interestString = String(data: interestData!, encoding: .utf8)!
+                        print(interestString)
+                        interestArr = interestString.components(separatedBy: "\n")
+                        if interestArr.count > 0 {
+                            interestArr.removeLast()
+                        }
+                    }
+                }
                 
                 VStack{
                     List{
                         NavigationLink(destination: Paper1stView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title0"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag0"] ?? ""
+                                
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
-                                    
+                                
                                 Spacer()
                             }
                         }
                         
                         NavigationLink(destination: Paper2ndView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title1"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag1"] ?? ""
+                                
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
-                                    
+                                
                                 Spacer()
                             }
                         }
                         
                         NavigationLink(destination: Paper3rdView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title2"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag2"] ?? ""
+                                
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
-                                    
+                                
                                 Spacer()
                             }
                         }
                         NavigationLink(destination: Paper4thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title3"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag3"] ?? ""
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
                                     
@@ -163,13 +185,14 @@ struct ContentView: View {
                         }
                         
                         NavigationLink(destination: Paper5thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title4"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag4"] ?? ""
                                 Text(tag)
-                                    .font(.system(size: 15)).multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
+                                    .font(.system(size: 15))
                                     .foregroundColor(usingBlue)
                                     
                                 Spacer()
@@ -177,13 +200,13 @@ struct ContentView: View {
                         }
                         
                         NavigationLink(destination: Paper6thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title5"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag5"] ?? ""
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
                                     
@@ -192,13 +215,13 @@ struct ContentView: View {
                         }
                         
                         NavigationLink(destination: Paper7thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title6"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag6"] ?? ""
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
                                     
@@ -207,13 +230,13 @@ struct ContentView: View {
                         }
                         
                         NavigationLink(destination: Paper8thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title7"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag7"] ?? ""
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
                                     
@@ -222,13 +245,13 @@ struct ContentView: View {
                         }
                         
                         NavigationLink(destination: Paper9thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title8"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag8"] ?? ""
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
                                     
@@ -236,13 +259,13 @@ struct ContentView: View {
                             }
                         }
                         NavigationLink(destination: Paper10thView()){
-                            VStack {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(paperDict["title9"] ?? "").font(.system(size: 18, weight: .semibold)).multilineTextAlignment(.leading).lineLimit(nil)
                                 Spacer()
                                 var tag = paperDict["tag9"] ?? ""
                                 Text(tag)
-                                    .multilineTextAlignment(.leading)
+                                    .multilineTextAlignment(.leading).lineLimit(5)
                                     .foregroundColor(usingBlue)
                                     .font(.system(size: 15))
                                     
@@ -259,23 +282,7 @@ struct ContentView: View {
         }//nevigationview
         .navigationViewStyle(DefaultNavigationViewStyle())
         .onAppear(){
-            let fileManager = FileManager.default
-            let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let directoryURL = documentsURL.appendingPathComponent("DoNotDelete")
-            let interestPath = directoryURL.appendingPathComponent("PaperInterest.txt")
             
-            if !fileManager.fileExists(atPath: interestPath.path) {
-                interestFlag = false
-            }
-            if interestFlag == true{
-                interestData = fileManager.contents(atPath : interestPath.path)!
-                interestString = String(data: interestData!, encoding: .utf8)!
-                print(interestString)
-                interestArr = interestString.components(separatedBy: "\n")
-                if interestArr.count > 0 {
-                    interestArr.removeLast()
-                }
-            }
             print("here")
             //jsonPost()
             /*
@@ -391,7 +398,7 @@ struct ContentView: View {
                     paperDict["summary\(i)"] = jsonDerived.summary0
                     paperDict["pdf\(i)"] = jsonDerived.pdf0
                     paperDict["tag\(i)"] = jsonDerived.tag0
-                    print(paperDict["pdf0"])
+                    
                     i = 1
                     paperDict["title\(i)"] = jsonDerived.title1
                     paperDict["author\(i)"] = jsonDerived.author1
@@ -425,7 +432,6 @@ struct ContentView: View {
                     paperDict["summary\(i)"] = jsonDerived.summary4
                     paperDict["pdf\(i)"] = jsonDerived.pdf4
                     paperDict["tag\(i)"] = jsonDerived.tag4
-                    
                     i = 5
                     paperDict["title\(i)"] = jsonDerived.title5
                     paperDict["author\(i)"] = jsonDerived.author5
