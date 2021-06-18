@@ -32,7 +32,7 @@ struct InterestView: View {
     @State var interestData : Data?
     @State var interestString : String = ""
     @State var interestArr = [String]()
-    
+    let usingBlue = Color(red: 0.576, green: 0.663, blue: 0.82)
     
     var body: some View {
         
@@ -56,7 +56,7 @@ struct InterestView: View {
                         Spacer()
                         Text(interestlistItem.isChecked ? "✓" : " ")
                             .font(.title)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(usingBlue)
                             .bold()
                             
                     } // end of HStack
@@ -112,10 +112,10 @@ struct InterestView: View {
                 Text("Save")
                     .foregroundColor(Color.white)
                     .frame(width: 380, height: 40)
-                    .background(Color.blue)
+                    .background(usingBlue)
                     .cornerRadius(12)
                     .overlay( RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.blue, lineWidth: 2))
+                                .stroke(usingBlue, lineWidth: 2))
                     
             }
             //State for alert

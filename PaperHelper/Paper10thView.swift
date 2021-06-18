@@ -11,6 +11,7 @@ struct Paper10thView: View {
     
     @State var alertIsVisible2 = false
     @State var paperDict: Dictionary <String, String> = [:]
+    let usingBlue = Color(red: 0.576, green: 0.663, blue: 0.82)
     
     var body: some View {
         VStack{
@@ -24,8 +25,12 @@ struct Paper10thView: View {
                 HStack{
                     Text("Author")
                         .font(.system(size: 15))
-                        .frame(width: 80, height: 25)
-                        .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
+                        .frame(width: 90, height: 30)
+                        .overlay( RoundedRectangle(cornerRadius: 8)
+                                    .stroke(usingBlue, lineWidth: 1.5))
+                        .background(usingBlue)
+                        .cornerRadius(8)
+                        .foregroundColor(Color.white)
                     Text(paperDict["author9"] ?? "")
                         .font(.system(size: 15))
                         .frame(width: 270, height: 25)
@@ -34,22 +39,34 @@ struct Paper10thView: View {
                 HStack{
                     Text("Publication")
                         .font(.system(size: 15))
-                        .frame(width: 80, height: 25)
-                        .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
+                        .frame(width: 90, height: 30)
+                        .overlay( RoundedRectangle(cornerRadius: 8)
+                                    .stroke(usingBlue, lineWidth: 1.5))
+                        .background(usingBlue)
+                        .cornerRadius(8)
+                        .foregroundColor(Color.white)
                     Text(paperDict["publication9"] ?? "")
+                        .multilineTextAlignment(.leading)
                         .font(.system(size: 15))
                         .frame(width: 270, height: 25)
+                        
                 }//end of Publication HStack
                 
                 Spacer();
                 HStack{
                     Text("Year")
                         .font(.system(size: 15))
-                        .frame(width: 80, height: 25)
-                        .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
+                        .frame(width: 90, height: 30)
+                        .overlay( RoundedRectangle(cornerRadius: 8)
+                                    .stroke(usingBlue, lineWidth: 1.5))
+                        .background(usingBlue)
+                        .cornerRadius(8)
+                        .foregroundColor(Color.white)
                     Text(paperDict["year9"] ?? "")
+                        .multilineTextAlignment(.leading)
                         .font(.system(size: 15))
                         .frame(width: 270, height: 25)
+                        
                 }//end of Year HStack
             } // end of Group
             
@@ -58,8 +75,12 @@ struct Paper10thView: View {
             HStack{
                 Text("Summary")
                     .font(.system(size: 15))
-                    .frame(width: 80, height: 25)
-                    .background(Color(red: 0.2, green: 0.2, blue: 0.2, opacity: 0.3))
+                    .frame(width: 90, height: 30)
+                    .overlay( RoundedRectangle(cornerRadius: 8)
+                                .stroke(usingBlue, lineWidth: 1.5))
+                    .background(usingBlue)
+                    .cornerRadius(8)
+                    .foregroundColor(Color.white)
                 Text("  ")
                     .font(.system(size: 15))
                     .frame(width: 270, height: 25)
@@ -72,24 +93,19 @@ struct Paper10thView: View {
             } //end of Summary Scroll
             
             
-            Button(action: {
-                self.alertIsVisible2 = true
+            if let urlString = paperDict["pdf9"]{
                 
-            }) {
-                Text("Download PDF")
-                    .foregroundColor(Color.white)
-                    .frame(width: 380, height: 40)
-                    .overlay( RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.blue, lineWidth: 2))
-                    .background(Color.blue)
-                    .cornerRadius(12)
+                Link(destination: URL(string: urlString)!) {
+                    
+                    Text("View PDF")
+                        .foregroundColor(Color.white)
+                        .frame(width: 380, height: 40)
+                        .overlay( RoundedRectangle(cornerRadius: 12)
+                                    .stroke(usingBlue, lineWidth: 2))
+                        .background(usingBlue)
+                        .cornerRadius(12)
+                }
             }
-            //State for alert
-            .alert(isPresented: self.$alertIsVisible2) {
-                Alert(title: Text("Downloaded This Paper PDF!"),
-                      message: Text("You can read whole paper now."),
-                      dismissButton: .default(Text("Okay")))
-            }//end of .alert
             
         }
         .padding(.top, 30.0)
@@ -153,6 +169,68 @@ struct Paper10thView: View {
                     paperDict["year\(i)"] = jsonDerived.year2
                     paperDict["summary\(i)"] = jsonDerived.summary2
                     paperDict["pdf\(i)"] = jsonDerived.pdf2
+                    
+                    i = 3
+                    paperDict["title\(i)"] = jsonDerived.title3
+                    paperDict["author\(i)"] = jsonDerived.author3
+                    paperDict["publication\(i)"] = jsonDerived.publication3
+                    paperDict["year\(i)"] = jsonDerived.year3
+                    paperDict["summary\(i)"] = jsonDerived.summary3
+                    paperDict["pdf\(i)"] = jsonDerived.pdf3
+                    paperDict["tag\(i)"] = jsonDerived.tag3
+                    
+                    i = 4
+                    paperDict["title\(i)"] = jsonDerived.title4
+                    paperDict["author\(i)"] = jsonDerived.author4
+                    paperDict["publication\(i)"] = jsonDerived.publication4
+                    paperDict["year\(i)"] = jsonDerived.year4
+                    paperDict["summary\(i)"] = jsonDerived.summary4
+                    paperDict["pdf\(i)"] = jsonDerived.pdf4
+                    paperDict["tag\(i)"] = jsonDerived.tag4
+                    
+                    i = 5
+                    paperDict["title\(i)"] = jsonDerived.title5
+                    paperDict["author\(i)"] = jsonDerived.author5
+                    paperDict["publication\(i)"] = jsonDerived.publication5
+                    paperDict["year\(i)"] = jsonDerived.year5
+                    paperDict["summary\(i)"] = jsonDerived.summary5
+                    paperDict["pdf\(i)"] = jsonDerived.pdf5
+                    paperDict["tag\(i)"] = jsonDerived.tag5
+                    
+                    i = 6
+                    paperDict["title\(i)"] = jsonDerived.title6
+                    paperDict["author\(i)"] = jsonDerived.author6
+                    paperDict["publication\(i)"] = jsonDerived.publication6
+                    paperDict["year\(i)"] = jsonDerived.year6
+                    paperDict["summary\(i)"] = jsonDerived.summary6
+                    paperDict["pdf\(i)"] = jsonDerived.pdf6
+                    paperDict["tag\(i)"] = jsonDerived.tag6
+                    
+                    i = 7
+                    paperDict["title\(i)"] = jsonDerived.title7
+                    paperDict["author\(i)"] = jsonDerived.author7
+                    paperDict["publication\(i)"] = jsonDerived.publication7
+                    paperDict["year\(i)"] = jsonDerived.year7
+                    paperDict["summary\(i)"] = jsonDerived.summary7
+                    paperDict["pdf\(i)"] = jsonDerived.pdf7
+                    paperDict["tag\(i)"] = jsonDerived.tag7
+                    
+                    i = 8
+                    paperDict["title\(i)"] = jsonDerived.title8
+                    paperDict["author\(i)"] = jsonDerived.author8
+                    paperDict["publication\(i)"] = jsonDerived.publication8
+                    paperDict["year\(i)"] = jsonDerived.year8
+                    paperDict["summary\(i)"] = jsonDerived.summary8
+                    paperDict["pdf\(i)"] = jsonDerived.pdf8
+                    paperDict["tag\(i)"] = jsonDerived.tag8
+                    i = 9
+                    paperDict["title\(i)"] = jsonDerived.title9
+                    paperDict["author\(i)"] = jsonDerived.author9
+                    paperDict["publication\(i)"] = jsonDerived.publication9
+                    paperDict["year\(i)"] = jsonDerived.year9
+                    paperDict["summary\(i)"] = jsonDerived.summary9
+                    paperDict["pdf\(i)"] = jsonDerived.pdf9
+                    paperDict["tag\(i)"] = jsonDerived.tag9
                     
                                             
                 } catch let jsonErr {
